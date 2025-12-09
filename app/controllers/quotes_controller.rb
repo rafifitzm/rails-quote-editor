@@ -1,5 +1,5 @@
 class QuotesController < ApplicationController
-  before_action set_quote, only: [:show, :edit, :update, :destroy]
+  before_action :set_quote, only: [:show, :edit, :update, :destroy]
   def index
     @quotes = Quote.all
   end
@@ -11,7 +11,7 @@ class QuotesController < ApplicationController
   def create
     @quote = Quote.new(quote_params)
     if @quote.save
-      redirect_to quote_path(@quote), status: :see_other, notice: "Quote was successfully created."
+      redirect_to quotes_path, status: :see_other, notice: "Quote was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -20,7 +20,7 @@ class QuotesController < ApplicationController
   end
   def update
     if @quote.save
-      redirect_to quote_path(@quote), status: :see_other, notice: "Quote was successfully updated."
+      redirect_to quotes_path, status: :see_other, notice: "Quote was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
