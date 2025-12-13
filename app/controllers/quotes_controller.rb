@@ -19,7 +19,7 @@ class QuotesController < ApplicationController
   def edit
   end
   def update
-    if @quote.save
+    if @quote.update(quote_params)
       redirect_to quotes_path, status: :see_other, notice: "Quote was successfully updated."
     else
       render :edit, status: :unprocessable_entity
@@ -27,7 +27,11 @@ class QuotesController < ApplicationController
   end
   def destroy
     @quote.destroy
-    redirect_to quotes_path, status: :see_other, notice: "Quote was successfully destroyed."
+
+    respond_to do |format|
+      format.html { redirect_to quotes_path, status: :see_other, notice: "Quote was successfully destroyed." }
+      format.turbo_stream
+    end
   end
 
   private
