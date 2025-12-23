@@ -4,7 +4,7 @@ class QuotesController < ApplicationController
     @quotes = current_company.quotes.ordered
   end
   def show
-    @line_item_dates = @quote.line_item_dates.ordered
+    @line_item_dates = @quote.line_item_dates.includes(:line_items).ordered
   end
   def new
     @quote = Quote.new
